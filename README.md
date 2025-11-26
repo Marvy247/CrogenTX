@@ -195,7 +195,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - Story Protocol team for the amazing IP infrastructure
 - Surreal World Assets Buildathon organizers
-- shadcn for the beautiful UI components
 - D3.js and react-force-graph communities
 
 ---
