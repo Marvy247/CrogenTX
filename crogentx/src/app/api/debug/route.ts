@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getTransactions } from '@/lib/cronos/queries';
+import { fetchTransactions } from '@/lib/cronos/queries';
 
 /**
  * POST /api/debug
@@ -28,8 +28,8 @@ export async function POST(request: NextRequest) {
     }
 
     // Fetch transaction
-    const transactions = await getTransactions({ limit: 1000 });
-    const tx = transactions.find(t => t.transactionHash === transactionHash);
+    const transactions = await fetchTransactions({ limit: 1000 });
+    const tx = transactions.find(t => t.txHash === transactionHash);
 
     if (!tx) {
       return NextResponse.json(

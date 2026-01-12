@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getAgents } from '@/lib/cronos/queries';
+import { fetchAgents } from '@/lib/cronos/queries';
 
 /**
  * GET /api/agents
@@ -22,7 +22,7 @@ export async function GET(request: NextRequest) {
       active: searchParams.get('active') === 'true' ? true : undefined,
     };
 
-    const agents = await getAgents();
+    const agents = await fetchAgents();
 
     let filtered = agents;
 
@@ -31,11 +31,11 @@ export async function GET(request: NextRequest) {
     }
 
     if (params.minBalance !== undefined) {
-      filtered = filtered.filter(agent => parseFloat(agent.balance) >= params.minBalance!);
+      filtered = filtered.filter(agent => parseFloat(agent.totalVolume) >= params.minBalance!);
     }
 
     if (params.active) {
-      filtered = filtered.filter(agent => agent.status === 'active');
+      filtered = filtered.filter(agent => agent.isActive === true);
     }
 
     const limited = filtered.slice(0, params.limit);

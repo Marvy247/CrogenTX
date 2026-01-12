@@ -75,7 +75,7 @@ function getRandomInstruction() {
 }
 
 function generateAgentName(type: AgentType): string {
-  const names = AGENT_NAMES[type] || ['Custom Agent'];
+  const names = (AGENT_NAMES as any)[type] || ['Custom Agent'];
   const baseName = names[Math.floor(Math.random() * names.length)];
   return Math.random() > 0.7 ? `${baseName} #${Math.floor(Math.random() * 999) + 1}` : baseName;
 }

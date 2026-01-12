@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getTransactions } from '@/lib/cronos/queries';
+import { fetchTransactions } from '@/lib/cronos/queries';
 
 /**
  * GET /api/transactions
@@ -21,7 +21,7 @@ export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams;
     
     // Parse query parameters
-    const params = {
+    const params: any = {
       limit: parseInt(searchParams.get('limit') || '100'),
       offset: parseInt(searchParams.get('offset') || '0'),
       status: searchParams.get('status') as 'success' | 'failed' | 'pending' | undefined,
@@ -34,7 +34,7 @@ export async function GET(request: NextRequest) {
     };
 
     // Fetch transactions
-    const transactions = await getTransactions(params);
+    const transactions = await fetchTransactions(params);
 
     // Filter based on parameters
     let filtered = transactions;

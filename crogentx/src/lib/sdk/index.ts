@@ -15,6 +15,6 @@ export {
 export type {
   X402Transaction,
   AIAgent,
-  InstructionType,
+  X402InstructionType,
   TransactionCategory,
 } from '../cronos/types';

@@ -1,51 +1,55 @@
-// Story Protocol SDK Client Setup
-import { defineChain } from 'viem';
+// Story Protocol API Client
+// Defines the base URL and a helper function for API calls.
 
-// Define Story Odyssey chain
-export const odyssey = defineChain({
-  id: 1513,
-  name: 'Story Odyssey Testnet',
-  nativeCurrency: { name: 'IP', symbol: 'IP', decimals: 18 },
-  rpcUrls: {
-    default: { http: ['https://odyssey.storyrpc.io'] },
-  },
-  blockExplorers: {
-    default: { name: 'Explorer', url: 'https://odyssey.storyscan.xyz' },
-  },
-  testnet: true,
-});
+// Default to a local development endpoint if not set in environment variables
+export const STORY_API_BASE_URL = process.env.NEXT_PUBLIC_STORY_API_URL || 'https://api.storyprotocol.net';
 
-// Note: We use the REST API directly via fetchFromStoryAPI instead of the SDK client
-// This avoids chainId compatibility issues and works better for our use case
-
-// API endpoints - Updated to real Story Protocol API
-export const STORY_API_BASE_URL = process.env.NEXT_PUBLIC_STORY_API_URL || 'https://api.storyapis.com/api/v4';
-
-// Helper to fetch from Story API
-export async function fetchFromStoryAPI(endpoint: string, options?: RequestInit) {
+/**
+ * Fetches data from the Story Protocol API.
+ *
+ * @param endpoint The API endpoint to call (e.g., '/assets').
+ * @param options Optional fetch options (method, headers, body, etc.).
+ * @returns A promise that resolves to the JSON response.
+ * @throws An error if the network response is not ok.
+ */
+export async function fetchFromStoryAPI(endpoint: string, options: RequestInit = {}): Promise<any> {
   const url = `${STORY_API_BASE_URL}${endpoint}`;
-  const headers = {
+  
+  const defaultHeaders = {
     'Content-Type': 'application/json',
-    ...(process.env.NEXT_PUBLIC_STORY_API_KEY && {
-      'X-Api-Key': process.env.NEXT_PUBLIC_STORY_API_KEY,
-    }),
-    ...options?.headers,
+    // Add any default headers here, like an API key if required
+    // 'X-API-Key': process.env.STORY_PROTOCOL_API_KEY,
   };
 
-  const response = await fetch(url, {
+  const config: RequestInit = {
     ...options,
-    headers,
-  });
+    headers: {
+      ...defaultHeaders,
+      ...options.headers,
+    },
+  };
 
-  if (!response.ok) {
-    throw new Error(`Story API error: ${response.status} ${response.statusText}`);
+  try {
+    const response = await fetch(url, config);
+
+    if (!response.ok) {
+      // Try to parse the error response for more details
+      const errorBody = await response.text();
+      console.error('Story Protocol API Error:', errorBody);
+      throw new Error(
+        `API request failed with status ${response.status}: ${response.statusText}`
+      );
+    }
+
+    // Handle cases where response might be empty
+    const contentType = response.headers.get('content-type');
+    if (contentType && contentType.indexOf('application/json') !== -1) {
+      return response.json();
+    } else {
+      return response.text();
+    }
+  } catch (error) {
+    console.error(`Failed to fetch from Story API endpoint: ${endpoint}`, error);
+    throw error;
   }
-
-  return response.json();
 }
-
-// Chain configuration
-export const SUPPORTED_CHAIN = odyssey;
-
-// Graph explorer URL
-export const EXPLORER_URL = 'https://explorer.story.foundation';

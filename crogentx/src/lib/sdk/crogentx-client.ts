@@ -252,11 +252,4 @@ export function createClient(config: CrogentXConfig): CrogentXClient {
   return new CrogentXClient(config);
 }
 
-/**
- * Export types for external use
- */
-export type {
-  TransactionQuery,
-  SimulateTransactionParams,
-  DebugTransactionParams,
-};
+// Types are already exported above with their declarations

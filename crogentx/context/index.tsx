@@ -1,9 +1,8 @@
 'use client'
 
-import { wagmiAdapter, projectId } from '../config'
+import { wagmiAdapter, projectId, networks } from '../config'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { createAppKit } from '@reown/appkit/react'
-import { base, baseSepolia } from '@reown/appkit/networks'
 import React, { type ReactNode } from 'react'
 import { cookieToInitialState, WagmiProvider, type Config } from 'wagmi'
 
@@ -16,9 +15,9 @@ if (!projectId) {
 
 // Set up metadata
 const metadata = {
-  name: 'Base Lending Pool Frontend',
-  description: 'Frontend for Base Lending Pool smart contracts',
-  url: 'http://localhost:3000', // origin must match your domain & subdomain
+  name: 'CrogentX - Cronos x402 Developer Toolkit',
+  description: 'Transaction visualization, debugging, and analytics for Cronos x402',
+  url: 'https://crogentx.vercel.app', // origin must match your domain & subdomain
   icons: ['https://avatars.githubusercontent.com/u/179229932']
 }
 
@@ -26,8 +25,8 @@ const metadata = {
 const modal = createAppKit({
   adapters: [wagmiAdapter],
   projectId,
-  networks: [base, baseSepolia],
-  defaultNetwork: baseSepolia,
+  networks: networks as any,
+  defaultNetwork: networks[0],
   metadata: metadata,
   features: {
     analytics: true // Optional - defaults to your Cloud configuration

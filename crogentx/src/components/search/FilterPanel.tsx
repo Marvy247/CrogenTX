@@ -10,56 +10,77 @@ import { useFilterStore } from '@/stores/filterStore';
 export default function FilterPanel() {
   const [isOpen, setIsOpen] = useState(false);
   const {
-    licenseTypes,
-    mediaTypes,
-    commercialOnly,
-    hasDerivatives,
-    setLicenseTypes,
-    setMediaTypes,
-    setCommercialOnly,
-    setHasDerivatives,
+    instructionTypes,
+    agentTypes,
+    categories,
+    status,
+    onlyBatched,
+    onlyMultiStep,
+    setInstructionTypes,
+    setAgentTypes,
+    setCategories,
+    setStatus,
+    setOnlyBatched,
+    setOnlyMultiStep,
     reset,
   } = useFilterStore();
 
-  const licenseOptions = [
-    { value: 'Commercial Remix', label: '💼 Commercial Remix', color: '#10b981' },
-    { value: 'Commercial', label: '💰 Commercial Only', color: '#3b82f6' },
-    { value: 'Non-Commercial Remix', label: '🎨 Non-Commercial Remix', color: '#f59e0b' },
-    { value: 'Attribution Only', label: '📝 Attribution Only', color: '#8b5cf6' },
-    { value: 'None', label: '⚪ No License', color: '#6b7280' },
+  const instructionOptions = [
+    { value: 'payment', label: '💸 Payment', color: '#10b981' },
+    { value: 'swap', label: '🔄 Swap', color: '#3b82f6' },
+    { value: 'stake', label: '🔒 Stake', color: '#f59e0b' },
+    { value: 'bridge', label: '🌉 Bridge', color: '#8b5cf6' },
+    { value: 'settlement', label: '⚖️ Settlement', color: '#6b7280' },
   ];
 
-  const mediaOptions = [
-    { value: 'image', label: '🖼️ Image', icon: '🖼️' },
-    { value: 'audio', label: '🎵 Audio', icon: '🎵' },
-    { value: 'video', label: '🎬 Video', icon: '🎬' },
-    { value: 'text', label: '📄 Text', icon: '📄' },
+  const categoryOptions = [
+    { value: 'defi', label: '💰 DeFi', icon: '💰' },
+    { value: 'payment', label: '💳 Payment', icon: '💳' },
+    { value: 'nft', label: '🎨 NFT', icon: '🎨' },
+    { value: 'bridge', label: '🌉 Bridge', icon: '🌉' },
     { value: 'other', label: '📦 Other', icon: '📦' },
   ];
 
-  const toggleLicenseType = (value: string) => {
-    const currentTypes = licenseTypes || [];
-    if (currentTypes.includes(value)) {
-      setLicenseTypes(currentTypes.filter((t) => t !== value));
+  const statusOptions = [
+    { value: 'success', label: '✅ Success', color: '#10b981' },
+    { value: 'failed', label: '❌ Failed', color: '#ef4444' },
+    { value: 'pending', label: '⏳ Pending', color: '#f59e0b' },
+  ];
+
+  const toggleInstructionType = (value: string) => {
+    const currentTypes = instructionTypes || [];
+    if (currentTypes.includes(value as any)) {
+      setInstructionTypes(currentTypes.filter((t) => t !== value) as any);
     } else {
-      setLicenseTypes([...currentTypes, value]);
+      setInstructionTypes([...currentTypes, value] as any);
     }
   };
 
-  const toggleMediaType = (value: string) => {
-    const currentTypes = mediaTypes || [];
-    if (currentTypes.includes(value)) {
-      setMediaTypes(currentTypes.filter((t) => t !== value));
+  const toggleCategory = (value: string) => {
+    const currentTypes = categories || [];
+    if (currentTypes.includes(value as any)) {
+      setCategories(currentTypes.filter((t) => t !== value) as any);
     } else {
-      setMediaTypes([...currentTypes, value]);
+      setCategories([...currentTypes, value] as any);
+    }
+  };
+
+  const toggleStatus = (value: string) => {
+    const currentTypes = status || [];
+    if (currentTypes.includes(value as any)) {
+      setStatus(currentTypes.filter((t) => t !== value) as any);
+    } else {
+      setStatus([...currentTypes, value] as any);
     }
   };
 
   const activeFilterCount =
-    (licenseTypes?.length || 0) +
-    (mediaTypes?.length || 0) +
-    (commercialOnly ? 1 : 0) +
-    (hasDerivatives ? 1 : 0);
+    (instructionTypes?.length || 0) +
+    (agentTypes?.length || 0) +
+    (categories?.length || 0) +
+    (status?.length || 0) +
+    (onlyBatched ? 1 : 0) +
+    (onlyMultiStep ? 1 : 0);
 
   return (
     <div className="relative">
@@ -111,18 +132,18 @@ export default function FilterPanel() {
             </div>
           </div>
 
-          {/* License Type Filters */}
+          {/* Instruction Type Filters */}
           <div className="mb-6">
             <Label className="text-sm font-semibold mb-3 block text-zinc-200">
-              License Types
+              Instruction Types
             </Label>
             <div className="space-y-2">
-              {licenseOptions.map((option) => (
+              {instructionOptions.map((option) => (
                 <button
                   key={option.value}
-                  onClick={() => toggleLicenseType(option.value)}
+                  onClick={() => toggleInstructionType(option.value)}
                   className={`w-full flex items-center gap-3 p-3 rounded-lg transition-all ${
-                    licenseTypes?.includes(option.value)
+                    instructionTypes?.includes(option.value as any)
                       ? 'bg-zinc-800 border-2 border-blue-500'
                       : 'bg-zinc-950 border-2 border-transparent hover:bg-zinc-800'
                   }`}
@@ -132,7 +153,7 @@ export default function FilterPanel() {
                     style={{ backgroundColor: option.color }}
                   />
                   <span className="text-sm flex-1 text-left">{option.label}</span>
-                  {licenseTypes?.includes(option.value) && (
+                  {instructionTypes?.includes(option.value as any) && (
                     <span className="text-blue-500 text-xs">✓</span>
                   )}
                 </button>
@@ -140,25 +161,54 @@ export default function FilterPanel() {
             </div>
           </div>
 
-          {/* Media Type Filters */}
+          {/* Category Filters */}
           <div className="mb-6">
             <Label className="text-sm font-semibold mb-3 block text-zinc-200">
-              Media Types
+              Categories
             </Label>
             <div className="grid grid-cols-2 gap-2">
-              {mediaOptions.map((option) => (
+              {categoryOptions.map((option) => (
                 <button
                   key={option.value}
-                  onClick={() => toggleMediaType(option.value)}
+                  onClick={() => toggleCategory(option.value)}
                   className={`flex items-center gap-2 p-3 rounded-lg transition-all ${
-                    mediaTypes?.includes(option.value)
+                    categories?.includes(option.value as any)
                       ? 'bg-zinc-800 border-2 border-blue-500'
                       : 'bg-zinc-950 border-2 border-transparent hover:bg-zinc-800'
                   }`}
                 >
                   <span className="text-lg">{option.icon}</span>
                   <span className="text-sm flex-1">{option.label.split(' ')[1]}</span>
-                  {mediaTypes?.includes(option.value) && (
+                  {categories?.includes(option.value as any) && (
+                    <span className="text-blue-500 text-xs">✓</span>
+                  )}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Status Filters */}
+          <div className="mb-6">
+            <Label className="text-sm font-semibold mb-3 block text-zinc-200">
+              Status
+            </Label>
+            <div className="space-y-2">
+              {statusOptions.map((option) => (
+                <button
+                  key={option.value}
+                  onClick={() => toggleStatus(option.value)}
+                  className={`w-full flex items-center gap-3 p-3 rounded-lg transition-all ${
+                    status?.includes(option.value as any)
+                      ? 'bg-zinc-800 border-2 border-blue-500'
+                      : 'bg-zinc-950 border-2 border-transparent hover:bg-zinc-800'
+                  }`}
+                >
+                  <div
+                    className="w-4 h-4 rounded-full flex-shrink-0"
+                    style={{ backgroundColor: option.color }}
+                  />
+                  <span className="text-sm flex-1 text-left">{option.label}</span>
+                  {status?.includes(option.value as any) && (
                     <span className="text-blue-500 text-xs">✓</span>
                   )}
                 </button>
@@ -173,29 +223,29 @@ export default function FilterPanel() {
             </Label>
             
             <button
-              onClick={() => setCommercialOnly(!commercialOnly)}
+              onClick={() => setOnlyBatched(!onlyBatched)}
               className={`w-full flex items-center gap-3 p-3 rounded-lg transition-all ${
-                commercialOnly
+                onlyBatched
                   ? 'bg-zinc-800 border-2 border-blue-500'
                   : 'bg-zinc-950 border-2 border-transparent hover:bg-zinc-800'
               }`}
             >
-              <span className="text-lg">💼</span>
-              <span className="text-sm flex-1 text-left">Commercial Use Only</span>
-              {commercialOnly && <span className="text-blue-500 text-xs">✓</span>}
+              <span className="text-lg">📦</span>
+              <span className="text-sm flex-1 text-left">Batched Only</span>
+              {onlyBatched && <span className="text-blue-500 text-xs">✓</span>}
             </button>
 
             <button
-              onClick={() => setHasDerivatives(!hasDerivatives)}
+              onClick={() => setOnlyMultiStep(!onlyMultiStep)}
               className={`w-full flex items-center gap-3 p-3 rounded-lg transition-all ${
-                hasDerivatives
+                onlyMultiStep
                   ? 'bg-zinc-800 border-2 border-blue-500'
                   : 'bg-zinc-950 border-2 border-transparent hover:bg-zinc-800'
               }`}
             >
-              <span className="text-lg">🌳</span>
-              <span className="text-sm flex-1 text-left">Has Derivatives</span>
-              {hasDerivatives && <span className="text-blue-500 text-xs">✓</span>}
+              <span className="text-lg">🔗</span>
+              <span className="text-sm flex-1 text-left">Multi-Step Only</span>
+              {onlyMultiStep && <span className="text-blue-500 text-xs">✓</span>}
             </button>
           </div>
 
@@ -204,50 +254,50 @@ export default function FilterPanel() {
             <div className="mt-6 pt-6 border-t border-zinc-800">
               <p className="text-xs text-zinc-400 mb-2">Active Filters</p>
               <div className="flex flex-wrap gap-2">
-                {licenseTypes && licenseTypes.map((type) => (
+                {instructionTypes && instructionTypes.map((type) => (
                   <span
                     key={type}
                     className="px-2 py-1 text-xs bg-zinc-800 rounded-full flex items-center gap-1"
                   >
                     {type}
                     <button
-                      onClick={() => toggleLicenseType(type)}
+                      onClick={() => toggleInstructionType(type)}
                       className="hover:text-red-400"
                     >
                       <X className="h-3 w-3" />
                     </button>
                   </span>
                 ))}
-                {mediaTypes && mediaTypes.map((type) => (
+                {categories && categories.map((type) => (
                   <span
                     key={type}
                     className="px-2 py-1 text-xs bg-zinc-800 rounded-full flex items-center gap-1"
                   >
                     {type}
                     <button
-                      onClick={() => toggleMediaType(type)}
+                      onClick={() => toggleCategory(type)}
                       className="hover:text-red-400"
                     >
                       <X className="h-3 w-3" />
                     </button>
                   </span>
                 ))}
-                {commercialOnly && (
+                {onlyBatched && (
                   <span className="px-2 py-1 text-xs bg-zinc-800 rounded-full flex items-center gap-1">
-                    Commercial Only
+                    Batched Only
                     <button
-                      onClick={() => setCommercialOnly(false)}
+                      onClick={() => setOnlyBatched(false)}
                       className="hover:text-red-400"
                     >
                       <X className="h-3 w-3" />
                     </button>
                   </span>
                 )}
-                {hasDerivatives && (
+                {onlyMultiStep && (
                   <span className="px-2 py-1 text-xs bg-zinc-800 rounded-full flex items-center gap-1">
-                    Has Derivatives
+                    Multi-Step Only
                     <button
-                      onClick={() => setHasDerivatives(false)}
+                      onClick={() => setOnlyMultiStep(false)}
                       className="hover:text-red-400"
                     >
                       <X className="h-3 w-3" />

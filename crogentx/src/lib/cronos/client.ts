@@ -1,8 +1,8 @@
 // Cronos EVM Client Setup
-import { defineChain } from 'viem';
+// import { defineChain } from 'viem';
 
 // Define Cronos Mainnet
-export const cronosMainnet = defineChain({
+export const cronosMainnet = {
   id: 25,
   name: 'Cronos Mainnet',
   nativeCurrency: { name: 'Cronos', symbol: 'CRO', decimals: 18 },
@@ -13,10 +13,10 @@ export const cronosMainnet = defineChain({
     default: { name: 'Cronoscan', url: 'https://cronoscan.com' },
   },
   testnet: false,
-});
+};
 
 // Define Cronos Testnet
-export const cronosTestnet = defineChain({
+export const cronosTestnet = {
   id: 338,
   name: 'Cronos Testnet',
   nativeCurrency: { name: 'Test Cronos', symbol: 'TCRO', decimals: 18 },
@@ -27,7 +27,7 @@ export const cronosTestnet = defineChain({
     default: { name: 'Cronos Testnet Explorer', url: 'https://testnet.cronoscan.com' },
   },
   testnet: true,
-});
+};
 
 // Configuration
 export const CRONOS_CHAIN = process.env.NEXT_PUBLIC_CRONOS_TESTNET === 'true' 

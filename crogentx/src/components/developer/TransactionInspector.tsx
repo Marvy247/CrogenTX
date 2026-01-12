@@ -85,8 +85,8 @@ export default function TransactionInspector() {
                 <div>
                   <p className="text-xs text-zinc-400 mb-1">Hash</p>
                   <div className="flex items-center gap-2">
-                    <code className="text-sm text-white font-mono">{transaction.transactionHash.slice(0, 20)}...</code>
-                    <button onClick={() => copyToClipboard(transaction.transactionHash)}>
+                    <code className="text-sm text-white font-mono">{transaction.txHash.slice(0, 20)}...</code>
+                    <button onClick={() => copyToClipboard(transaction.txHash)}>
                       {copied ? <Check className="h-4 w-4 text-green-400" /> : <Copy className="h-4 w-4 text-zinc-400" />}
                     </button>
                   </div>
@@ -128,7 +128,7 @@ export default function TransactionInspector() {
                 variant="outline"
                 size="sm"
                 className="w-full"
-                onClick={() => window.open(`https://cronoscan.com/tx/${transaction.transactionHash}`, '_blank')}
+                onClick={() => window.open(`https://cronoscan.com/tx/${transaction.txHash}`, '_blank')}
               >
                 <ExternalLink className="h-4 w-4 mr-2" />
                 View on Cronoscan

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getTransactions, getAgents } from '@/lib/cronos/queries';
+import { fetchTransactions, fetchAgents } from '@/lib/cronos/queries';
 import { buildTransactionGraph } from '@/lib/graph/transaction-graph-builder';
 
 /**
@@ -24,8 +24,8 @@ export async function GET(request: NextRequest) {
     };
 
     // Fetch data
-    const transactions = await getTransactions({ limit: params.limit });
-    const agents = await getAgents();
+    const transactions = await fetchTransactions({ limit: params.limit });
+    const agents = await fetchAgents();
 
     // Apply filters
     let filtered = transactions;
@@ -43,7 +43,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Build graph
-    const graphData = buildTransactionGraph(filtered, agents, {});
+    const graphData = buildTransactionGraph(filtered, agents);
 
     return NextResponse.json({
       success: true,
