@@ -212,7 +212,7 @@ export default function TransactionInspector() {
           {/* Basic Info */}
           <Card className="bg-zinc-900 border-zinc-800">
             <CardHeader>
-              <CardTitle className="text-lg">Transaction Details</CardTitle>
+              <CardTitle className="text-lg text-white">Transaction Details</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
@@ -273,7 +273,7 @@ export default function TransactionInspector() {
           {/* Debug Info */}
           <Card className="bg-zinc-900 border-zinc-800">
             <CardHeader>
-              <CardTitle className="text-lg">Debug Information</CardTitle>
+              <CardTitle className="text-lg text-white">Debug Information</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               {/* Issues */}

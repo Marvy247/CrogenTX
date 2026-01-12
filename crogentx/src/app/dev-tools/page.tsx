@@ -171,11 +171,11 @@ export default function DevToolsPage() {
       {/* Main Content */}
       <main className="container mx-auto px-6 py-8">
         {/* Tabs */}
-        <div className="flex gap-2 mb-6">
+        <div className="flex gap-2 mb-6 ">
           <Button
             onClick={() => setActiveTab('inspector')}
             variant={activeTab === 'inspector' ? 'default' : 'outline'}
-            className={activeTab === 'inspector' ? 'bg-blue-600' : ''}
+            className={activeTab === 'inspector' ? 'bg-blue-600' : 'bg-black-600'}
           >
             <Code className="h-4 w-4 mr-2" />
             Transaction Inspector
@@ -183,7 +183,7 @@ export default function DevToolsPage() {
           <Button
             onClick={() => setActiveTab('simulator')}
             variant={activeTab === 'simulator' ? 'default' : 'outline'}
-            className={activeTab === 'simulator' ? 'bg-blue-600' : ''}
+            className={activeTab === 'simulator' ? 'bg-blue-600' : 'bg-black-600'}
           >
             <TestTube className="h-4 w-4 mr-2" />
             Transaction Simulator
@@ -191,7 +191,7 @@ export default function DevToolsPage() {
           <Button
             onClick={() => setActiveTab('docs')}
             variant={activeTab === 'docs' ? 'default' : 'outline'}
-            className={activeTab === 'docs' ? 'bg-blue-600' : ''}
+            className={activeTab === 'docs' ? 'bg-blue-600' : 'bg-black-600'}
           >
             <Code className="h-4 w-4 mr-2" />
             API Documentation
@@ -206,7 +206,7 @@ export default function DevToolsPage() {
           <div className="space-y-6">
             <Card className="bg-zinc-900 border-zinc-800">
               <CardHeader>
-                <CardTitle className="text-lg">Simulate x402 Transaction</CardTitle>
+                <CardTitle className="text-lg Simulate text-white">Simulate x402 Transaction</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
@@ -274,7 +274,7 @@ export default function DevToolsPage() {
             {simulationResult && (
               <Card className="bg-zinc-900 border-zinc-800">
                 <CardHeader>
-                  <CardTitle className="text-lg">Simulation Results</CardTitle>
+                  <CardTitle className="text-lg text-white">Simulation Results</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-6">
                   {/* Gas Estimation */}
@@ -356,7 +356,7 @@ export default function DevToolsPage() {
           <div className="space-y-6">
             <Card className="bg-zinc-900 border-zinc-800">
               <CardHeader>
-                <CardTitle className="text-lg">REST API Endpoints</CardTitle>
+                <CardTitle className="text-lg text-white">REST API Endpoints</CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div>
