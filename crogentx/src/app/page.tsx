@@ -176,7 +176,7 @@ export default function Home() {
                 animate={{ opacity: [0.5, 1, 0.5] }}
                 transition={{ duration: 2, repeat: Infinity }}
               >
-                Loading IP assets from Story Protocol...
+                Loading Transactions from Agents...
               </motion.p>
             </div>
           </motion.div>

@@ -378,7 +378,6 @@ This project excels in both Dev Tooling and Data Virtualization tracks:
 - **Crypto.com** for AI Agent SDK and comprehensive ecosystem support
 - **DoraHacks** for hosting and organizing this hackathon
 - **D3.js & react-force-graph** communities for visualization libraries
-- **Previous Work**: Built on foundation from Story Protocol hackathon winner project
 
 ##  Resources & Links
 

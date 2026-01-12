@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "CrogenTX - Cronos x402 Developer Toolkit",
-  description: "Interactive visualization of Story Protocol IP assets, derivatives, and licensing relationships",
+  description: "Interactive visualization of Cronos x402 Agent Transactions",
 };
 
 export default function RootLayout({
