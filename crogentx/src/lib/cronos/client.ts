@@ -30,17 +30,13 @@ export const cronosTestnet = {
 };
 
 // Configuration
-export const CRONOS_CHAIN = process.env.NEXT_PUBLIC_CRONOS_TESTNET === 'true' 
-  ? cronosTestnet 
-  : cronosMainnet;
+export const CRONOS_CHAIN = cronosMainnet;
 
 // API endpoints
-export const CRONOS_API_BASE_URL = process.env.NEXT_PUBLIC_CRONOS_API_URL || 
-  'https://api.cronoscan.com/api';
+export const CRONOS_API_BASE_URL = 'https://api.cronoscan.com/api';
 
 // x402 Facilitator endpoint (if available)
-export const X402_FACILITATOR_URL = process.env.NEXT_PUBLIC_X402_FACILITATOR_URL || 
-  'https://x402-api.cronos.org';
+export const X402_FACILITATOR_URL = 'https://x402-api.cronos.org';
 
 // Helper to fetch from Cronos API
 export async function fetchFromCronosAPI(endpoint: string, params?: Record<string, string>) {
@@ -52,10 +48,7 @@ export async function fetchFromCronosAPI(endpoint: string, params?: Record<strin
     });
   }
   
-  // Add API key if available
-  if (process.env.NEXT_PUBLIC_CRONOS_API_KEY) {
-    url.searchParams.append('apikey', process.env.NEXT_PUBLIC_CRONOS_API_KEY);
-  }
+
 
   const response = await fetch(url.toString());
 
@@ -125,4 +118,4 @@ export const TESTNET_FAUCET_URL = 'https://cronos.org/faucet';
 export const DEVUSDC_FAUCET_URL = 'https://faucet.cronos.org';
 
 // RPC URLs
-export const RPC_URL = process.env.NEXT_PUBLIC_RPC_URL || CRONOS_CHAIN.rpcUrls.default.http[0];
+export const RPC_URL = CRONOS_CHAIN.rpcUrls.default.http[0];

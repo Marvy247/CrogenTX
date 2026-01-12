@@ -2,7 +2,7 @@
 // Defines the base URL and a helper function for API calls.
 
 // Default to a local development endpoint if not set in environment variables
-export const STORY_API_BASE_URL = process.env.NEXT_PUBLIC_STORY_API_URL || 'https://api.storyprotocol.net';
+export const STORY_API_BASE_URL = 'https://api.storyprotocol.net';
 
 /**
  * Fetches data from the Story Protocol API.
