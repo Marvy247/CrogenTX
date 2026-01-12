@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Story Atlas - IP Relationship Explorer",
+  title: "CrogenTX - Cronos x402 Developer Toolkit",
   description: "Interactive visualization of Story Protocol IP assets, derivatives, and licensing relationships",
 };
 
